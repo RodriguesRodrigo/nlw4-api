@@ -22,7 +22,7 @@ class UserController {
 
         await usersRepository.save(user);
 
-        return response.send(user);
+        return response.status(201).send(user);
     }
 }
 
