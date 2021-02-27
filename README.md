@@ -33,6 +33,16 @@ npm run migration-run
 
 ## Revert migrations:
 
-```bash
+```
 npm run migration-revert
+```
+
+# Run tests
+
+> Make sure that the test database is not created before run tests.
+
+To run the tests is simple, you just need to run this command:
+
+```
+npm run test
 ```
