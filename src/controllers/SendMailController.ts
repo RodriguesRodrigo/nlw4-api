@@ -12,7 +12,7 @@ class SendMailController {
 
         const usersRepository = getCustomRepository(UserRepository);
         const surveysRepository = getCustomRepository(SurveysRepository);
-        const surveysUsersReposirory = getCustomRepository(SurveysUsersRepository);
+        const surveysUsersRepository = getCustomRepository(SurveysUsersRepository);
 
         const user = await usersRepository.findOne({email});
 
@@ -39,7 +39,7 @@ class SendMailController {
             link: process.env.URL_MAIL,
         }
 
-        const surveyUserAlreadyExists = await surveysUsersReposirory.findOne({
+        const surveyUserAlreadyExists = await surveysUsersRepository.findOne({
             where: { user_id: user.id, value: null, survey_id: survey_id},
             relations: ["user", "survey"],
         });
@@ -52,11 +52,11 @@ class SendMailController {
             return response.status(200).json(surveyUserAlreadyExists);
         }
 
-        const surveyUser = surveysUsersReposirory.create({
+        const surveyUser = surveysUsersRepository.create({
             user_id: user.id,
             survey_id,
         });
-        await surveysUsersReposirory.save(surveyUser);
+        await surveysUsersRepository.save(surveyUser);
 
         variables.id = surveyUser.id;
 
